@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import express from 'express';
 import helmet from 'helmet';
 import favicon from 'serve-favicon';
 import path from 'path';
@@ -9,15 +8,16 @@ import { ApolloServerPluginLandingPageGraphQLPlayground, ApolloServerPluginLandi
 import { ApolloServer } from 'apollo-server-express';
 import { UserInputError } from 'apollo-server-errors';
 
-import { ENVIRONMENT } from './config/environment.js';
-import { environmentVariablesConfig } from './config/appConfig.js';
-import { logger, endLogger } from './helpers/logger.js';
-import { requestDevLogger } from './helpers/requestDevLogger.js';
-import { setContext } from './gql/auth/setContext.js';
-import { initTypeDefinition } from './gql/types/index.js';
-import { resolvers } from './gql/resolvers/index.js';
-import { getListOfIPV4Address } from './helpers/getListOfIPV4Address.js';
-import routesManager from './routes/routesManager.js';
+// import { ENVIRONMENT } from '@config/environment';
+import { environmentVariablesConfig } from './config/appConfig.d.ts';
+import { logger, endLogger } from './helpers/logger.ts';
+import { requestDevLogger } from './helpers/requestDevLogger.ts';
+import { initTypeDefinition } from './gql/types/index.ts';
+import { resolvers } from './gql/resolvers/index.ts';
+import { getListOfIPV4Address } from './helpers/getListOfIPV4Address.ts';
+import routesManager from './routes/routesManager.ts';
+import { ENVIRONMENT } from './config/environment.d.ts';
+import { setContext } from './gql/auth/setContext.d.ts';
 
 
 mongoose.set('strictQuery', true);

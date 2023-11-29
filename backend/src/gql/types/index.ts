@@ -10,8 +10,8 @@ export const initTypeDefinition = async () => {
 	const resolversArray = await loadFiles(__dirname, {
 		extensions: ['js'],
 		ignoreIndex: true,
-		requireMethod: (path) => {
-			return import(pathToFileURL(path));
+		requireMethod: (path: string) => {
+			return import(pathToFileURL(path) as unknown as string);
 		},
 	});
 

@@ -1,8 +1,10 @@
-import { logger } from './logger.js';
+
+import { logger } from "./logger.js";
+
 
 export const requestDevLogger = {
 	// Fires whenever a GraphQL request is received from a client
-	requestDidStart (requestContext) {
+	requestDidStart(requestContext: { request: { query: string; variables: any; }; }) {
 
 		/* List of regex to filter queries from logger */
 		const excludeThisQueryFromLogger = [/query IntrospectionQuery/];
@@ -21,13 +23,13 @@ export const requestDevLogger = {
 
 		return {
 			// Fires whenever Apollo Server is about to send a response for a GraphQL operation
-			willSendResponse (requestContext) {
+			willSendResponse(requestContext: { response: { data: any; errors: any[]; }; }) {
 				logger.debug('Response data:');
 				logger.debug(requestContext.response.data);
 
 				if (requestContext.response.errors) {
 					logger.debug(`Response errors (number of errors: ${requestContext.response.errors.length}):`);
-					requestContext.response.errors.forEach(err => logger.debug(err.message));
+					requestContext.response.errors.forEach((err: { message: any; }) => logger.debug(err.message));
 				}
 			}
 		};

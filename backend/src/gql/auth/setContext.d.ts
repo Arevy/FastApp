@@ -1,9 +1,9 @@
-import { validateAuthToken, createAuthToken } from './jwt.js';
-import { environmentVariablesConfig } from '../../config/appConfig.js';
-import { authValidations } from '../auth/authValidations.js';
-import { ENVIRONMENT } from '../../config/environment.js';
-import { logger } from '../../helpers/logger.js';
-import { models } from '../../data/models/index.js';
+import { validateAuthToken, createAuthToken } from './jwt.ts';
+import { environmentVariablesConfig } from '../../config/appConfig.ts';
+import { authValidations } from './authValidations.ts';
+import { ENVIRONMENT } from '../../config/environment.ts';
+import { logger } from '../../helpers/logger.ts';
+import { models } from '../../data/models/index.ts';
 
 /**
  * Context function from Apollo Server

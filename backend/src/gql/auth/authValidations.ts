@@ -1,6 +1,8 @@
 import { AuthenticationError, ForbiddenError, ValidationError } from 'apollo-server-express';
-import { models } from '../../data/models/index.js';
-import { globalVariablesConfig } from '../../config/appConfig.js';
+// import { models } from '@data/models/index';
+
+import { models } from '@data/models/index.js';
+import { globalVariablesConfig } from '@config/appConfig.js';
 
 /**
  * Auth validations repository
@@ -11,7 +13,7 @@ export const authValidations = {
 	 * Check if the maximum limit of users has been reached. If limit is reached, it throws an error.
 	 * @param {number} numberOfCurrentlyUsersRegistered 	- The number of users currently registered in the service
 	 */
-	ensureLimitOfUsersIsNotReached: (numberOfCurrentlyUsersRegistered) => {
+	ensureLimitOfUsersIsNotReached: (numberOfCurrentlyUsersRegistered: number) => {
 		const usersLimit = globalVariablesConfig.limitOfUsersRegistered;
 		if (usersLimit === 0) {
 			return;
@@ -27,7 +29,7 @@ export const authValidations = {
 	 * @param {Object} context 			- The context object of Apollo Server
 	 * @param {Object} [context.user]  	- The context object data: user data
 	 */
-	ensureThatUserIsLogged: (context) => {
+	ensureThatUserIsLogged: (context: { user: any; }) => {
 		if (!context.user) {
 			throw new AuthenticationError('You must be logged in to perform this action');
 		}
@@ -39,7 +41,7 @@ export const authValidations = {
 	 * @param {Object} [context.user]  			- The context object data: user data
 	 * @param {boolean} [context.user.isAdmin] 	- The context object data: user data role information
 	 */
-	ensureThatUserIsAdministrator: (context) => {
+	ensureThatUserIsAdministrator: (context: { user: { isAdmin: any; }; }) => {
 		if (!context.user || !context.user.isAdmin) {
 			throw new ForbiddenError('You must be an administrator to perform this action');
 		}
@@ -52,11 +54,11 @@ export const authValidations = {
 	 * @param {Object} [context.user]  		- The context object data: user data
 	 * @returns {User}
 	 */
-	getUser: async (context) => {
+	getUser: async (context: { user: { uuid: null; }; }) => {
 		if (!context.user) {
 			return null;
 		}
-	
+
 		const userUUID = context.user.uuid || null;
 		const user = await models.Users.findOne({ uuid: userUUID }).lean();
 		if (!user) {

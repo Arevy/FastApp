@@ -9,10 +9,10 @@ import os from 'os';
 export const getListOfIPV4Address = ({ skipLocalhost = false } = {}) => {
 	const ifaces = os.networkInterfaces();
 
-	let result = [];
+	let result: string[] = [];
 
 	Object.keys(ifaces).forEach(function (ifname) {
-		ifaces[ifname].forEach(function (iface) {
+		ifaces[ifname]?.forEach(function (iface) {
 			// skip non-ipv4 addresses
 			if ('IPv4' !== iface.family) {
 				return;

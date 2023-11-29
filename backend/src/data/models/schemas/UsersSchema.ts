@@ -56,11 +56,11 @@ UsersSchema.pre('save', function (next) {
 	if (!this.isModified('password')) {
 		return next();
 	}
-	bcrypt.genSalt((err, salt) => {
+	bcrypt.genSalt((err: mongoose.CallbackError | undefined, salt: any) => {
 		if (err) {
 			return next(err);
 		}
-		bcrypt.hash(this.password, salt, (err, hash) => {
+		bcrypt.hash(this.password, salt, (err: mongoose.CallbackError | undefined, hash: string) => {
 			if (err) {
 				return next(err);
 			}

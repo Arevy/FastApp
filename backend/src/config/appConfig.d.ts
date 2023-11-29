@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { ENVIRONMENT } from './environment.js';
+import { ENVIRONMENT } from './environment';
 
 
 /* Home doc */

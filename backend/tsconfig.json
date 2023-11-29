@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    // "module": "commonjs",
+    "module": "nodenext",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@config/*": ["config/*"],
+      "@data/*": ["data/*"],
+      "@gql/*": ["gql/*"],
+      "@helpers/*": ["helpers/*"],
+      "@routes/*": ["routes/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/initApplication.ts", "src/server.js", "src/config/appConfig.d.ts", "src/config/environment.d.ts"],
+  "exclude": ["node_modules", "dist", "**/*.d.ts"]
+}
