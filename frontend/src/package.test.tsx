@@ -47,3 +47,6 @@ describe('package.json file', () => {
 		}
 	});
 });
+
+// Add an empty export to make this a module
+export { };
