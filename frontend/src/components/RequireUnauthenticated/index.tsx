@@ -1,14 +1,14 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { AuthContext } from '../../AuthContext';
+import { useStores } from 'src/stores/RootStoreContext';
 
 interface RequireUnauthenticatedProps {
 	children: ReactNode;
 }
 
 const RequireUnauthenticated: React.FC<RequireUnauthenticatedProps> = ({ children }) => {
-	const { isAuth } = useContext(AuthContext);
+	const { authStore: { isAuth } } = useStores();
 
 	if (isAuth) {
 		return <Navigate to='/' />;

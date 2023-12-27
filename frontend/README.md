@@ -20,6 +20,8 @@ If you prefer it, you can use one of these boilerplates without using the other!
 * Backend must be running. I recommend use my [backend boilerplate](https://github.com/didaquis/boilerplate-backend-node-graphql-mongodb)
 * Node.js 18.15 or higher
 
+or v16.15.1 + yarn
+
 ### 📚 How to run the application?
 * Use the command: `npm install`.
 * Configure the application:

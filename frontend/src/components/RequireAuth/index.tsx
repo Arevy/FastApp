@@ -1,14 +1,14 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import { useStores } from 'src/stores/RootStoreContext';
 
-import { AuthContext } from '../../AuthContext';
 
 interface RequireAuthProps {
 	children: ReactNode;
 }
 
 const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
-	const { isAuth } = useContext(AuthContext);
+	const { authStore: { isAuth } } = useStores();
 	const location = useLocation();
 
 	if (!isAuth) {

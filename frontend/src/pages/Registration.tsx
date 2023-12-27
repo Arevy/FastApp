@@ -1,15 +1,13 @@
-import { Fragment, useContext } from 'react';
-
-import { AuthContext } from '../AuthContext';
-
+import { Fragment } from 'react';
 import { PageTitle } from '../components/PageTitle';
 import { RegisterForm } from '../components/RegisterForm';
 import React from 'react';
+import { useStores } from 'src/stores/RootStoreContext';
 
 
 export const Registration = () => {
 
-	const { activateAuth } = useContext(AuthContext);
+	const { authStore: { activateAuth } } = useStores();
 
 	return (
 		<Fragment>

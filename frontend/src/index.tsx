@@ -6,10 +6,12 @@ import apolloClient from './apollo/config';
 import { ApolloProvider } from '@apollo/client';
 
 import * as serviceWorker from './serviceWorker';
-import AuthContextProvider from './AuthContext'; // Import AuthProvider
+// import AuthContextProvider from './AuthContext'; // Import AuthProvider // don't use
 
 import App from './App';
 import React from 'react';
+import { RootStoreContext } from './stores/RootStoreContext';
+import RootStore from './stores/RootStore';
 
 
 const container = document.getElementById('root');
@@ -18,13 +20,13 @@ if (container) {
 	const root = createRoot(container);
 
 	root.render(
-		<AuthContextProvider>
+		<RootStoreContext.Provider value={new RootStore()}>
 			<ApolloProvider client={apolloClient}>
 				<BrowserRouter>
 					<App />
 				</BrowserRouter>
 			</ApolloProvider>
-		</AuthContextProvider>,
+		</RootStoreContext.Provider>
 	);
 
 	serviceWorker.unregister();
