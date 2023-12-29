@@ -8,6 +8,7 @@ import {
     recoverUserDataFromSessionStorage,
     deleteUserDataFromSessionStorage
 } from '../utils/session'; // Adjust the import path as needed
+import RootStore from './RootStore';
 
 export interface UserData {
     email: string;
@@ -18,27 +19,30 @@ export interface UserData {
 
 class AuthStore {
     isAuth = !!recoverSession('token');
-    userData: UserData = { email: '', isAdmin: false, isActive: false, uuid: '' };
+    userData: UserData;
+    private rootStore: RootStore;
+    // private apolloClient: ApolloClient<NormalizedCacheObject>;
 
-    constructor() {
+    constructor(rootStore: RootStore) {
         makeAutoObservable(this);
-        // Recover user data if it exists in session storage
-        recoverUserDataFromSessionStorage();
+        this.rootStore = rootStore;
+        const recoveredUserData = recoverUserDataFromSessionStorage();
+        this.userData = recoveredUserData || { email: '', isAdmin: false, isActive: false, uuid: '' };
     }
 
     activateAuth(token: string) {
         const decodedToken = jwt.decode(token) as Partial<UserData> || {};
-        const userData = {
+        const userData: UserData = {
             email: decodedToken.email || '',
             isAdmin: !!decodedToken.isAdmin,
             isActive: !!decodedToken.isActive,
             uuid: decodedToken.uuid || '',
         };
 
+        storeUserDataOnSessionStorage(userData);
+        saveSession('token', token);
         this.userData = userData;
         this.isAuth = true;
-        storeUserDataOnSessionStorage();
-        saveSession('token', token);
     }
 
     removeAuth() {
@@ -47,8 +51,6 @@ class AuthStore {
         this.isAuth = false;
         this.userData = { email: '', isAdmin: false, isActive: false, uuid: '' };
     }
-
-    // Additional actions as needed
 }
 
 export default AuthStore;

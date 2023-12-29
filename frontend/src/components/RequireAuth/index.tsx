@@ -1,13 +1,14 @@
 import React, { ReactNode } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useStores } from 'src/stores/RootStoreContext';
+import { observer } from 'mobx-react-lite';
 
 
 interface RequireAuthProps {
 	children: ReactNode;
 }
 
-const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
+const RequireAuth: React.FC<RequireAuthProps> = observer(({ children }) => {
 	const { authStore: { isAuth } } = useStores();
 	const location = useLocation();
 
@@ -20,6 +21,6 @@ const RequireAuth: React.FC<RequireAuthProps> = ({ children }) => {
 	}
 
 	return <>{children}</>;
-};
+});
 
 export default RequireAuth;

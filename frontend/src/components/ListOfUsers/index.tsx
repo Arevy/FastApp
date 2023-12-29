@@ -1,35 +1,14 @@
-import React, { useEffect } from 'react';
-
-import { EmojiGreenCheck } from '../EmojiGreenCheck';
-import { EmojiRedCross } from '../EmojiRedCross';
-import { parseUnixTimestamp } from 'src/utils/utils';
-
-interface User {
-	uuid: React.Key | null | undefined;
-	email: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined;
-	isAdmin: any;
-	isActive: any;
-	registrationDate: string | number;
-	lastLogin: string | number;
-}
+import React from "react";
+import { EmojiGreenCheck } from "../EmojiGreenCheck";
+import { EmojiRedCross } from "../EmojiRedCross";
+import { parseUnixTimestamp } from "src/utils/utils";
+import { User } from "src/gql/types";
 
 interface ListOfUsersProps {
 	users: User[];
-	startPolling: (time: number) => void;
-	stopPolling: () => void;
 }
 
-const ListOfUsers: React.FC<ListOfUsersProps> = ({ users, startPolling, stopPolling }) => {
-	useEffect(() => {
-		const minuteInMilliseconds = 60000;
-		const tenMinutes = minuteInMilliseconds * 10;
-		startPolling(tenMinutes);
-
-		return () => {
-			stopPolling();
-		};
-	}, [startPolling, stopPolling]);
-
+const ListOfUsers: React.FC<ListOfUsersProps> = ({ users }) => {
 	return (
 		<section className="table-responsive">
 			<table className="table text-light">

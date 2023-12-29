@@ -1,18 +1,14 @@
-import { Fragment } from 'react';
-import { PageTitle } from '../components/PageTitle';
-import { RegisterForm } from '../components/RegisterForm';
-import React from 'react';
-import { useStores } from 'src/stores/RootStoreContext';
-
+import { Fragment } from "react";
+import { PageTitle } from "../components/PageTitle";
+import { RegisterForm } from "../components/RegisterForm";
+import React from "react";
 
 export const Registration = () => {
 
-	const { authStore: { activateAuth } } = useStores();
-
 	return (
 		<Fragment>
-			<PageTitle text='Create an account' />
-			<RegisterForm activateAuth={activateAuth} />
+			<PageTitle text="Create an account" />
+			<RegisterForm />
 		</Fragment>
 	);
 };

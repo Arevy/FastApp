@@ -13,6 +13,16 @@ import React from 'react';
 import { RootStoreContext } from './stores/RootStoreContext';
 import RootStore from './stores/RootStore';
 
+// Initialize the root store
+const rootStore = new RootStore(apolloClient);
+
+// Expose the store to the window object for debugging
+if (process.env.NODE_ENV === 'development') {
+	window.store = {
+		rootStore,
+		// Add other stores if needed
+	};
+}
 
 const container = document.getElementById('root');
 
@@ -20,7 +30,7 @@ if (container) {
 	const root = createRoot(container);
 
 	root.render(
-		<RootStoreContext.Provider value={new RootStore()}>
+		<RootStoreContext.Provider value={new RootStore(apolloClient)}>
 			<ApolloProvider client={apolloClient}>
 				<BrowserRouter>
 					<App />
